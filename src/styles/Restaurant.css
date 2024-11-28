@@ -1,0 +1,36 @@
+.restaurant-list {
+    width: 100vw;
+    background-color: aqua;
+    padding: 5% 0%;
+}
+
+.restaurant-list h2{
+    margin-left: 100px;
+}
+  
+.restaurant-cards {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0px 0px 80px;
+    width: 90vw;
+}
+  
+.restaurant-card {
+    text-align: center;
+    margin: 20px;
+    border: 1px solid #ccc;
+    background-color: #fc8a06;
+    border-radius: 5px;
+    width: 300px;
+}
+  
+.restaurant-icon {
+    width: 180px;
+    height: 150px;
+}
+
+.restaurant-name{
+    background-color: #fc8a06;
+    color: white;
+    padding-bottom: 10px;
+}

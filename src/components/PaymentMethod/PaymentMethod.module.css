@@ -1,0 +1,165 @@
+.container {
+  padding: 1rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+}
+
+.title svg {
+  color: #666;
+}
+
+.paymentGrid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 1.5rem;
+}
+
+.methods {
+  background: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.method {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #eee;
+  border-radius: 0.5rem;
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.method:hover {
+  border-color: #ff5722;
+}
+
+.method.selected {
+  border-color: #ff5722;
+  background: #fff5f2;
+}
+
+.methodIcon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f8f8;
+  border-radius: 0.25rem;
+  margin-right: 1rem;
+}
+
+.methodDetails {
+  flex: 1;
+}
+
+.methodName {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin-bottom: 0.25rem;
+}
+
+.methodDescription {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.radio {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  margin-left: 1rem;
+  position: relative;
+}
+
+.selected .radio {
+  border-color: #ff5722;
+}
+
+.selected .radio::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #ff5722;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.addCard {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  color: #ff5722;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px dashed #ff5722;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  background: none;
+  width: 100%;
+}
+
+.addCard svg {
+  margin-right: 0.5rem;
+}
+
+.summary {
+  background: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.amount {
+  padding: 1rem;
+  border: 1px solid #eee;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.amountLabel {
+  font-size: 0.8rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.amountValue {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.payButton {
+  width: 100%;
+  padding: 0.75rem;
+  background: #ff5722;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.payButton:hover {
+  background: #f4511e;
+}

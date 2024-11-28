@@ -1,0 +1,130 @@
+.container {
+  padding: 1rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+}
+
+.title svg {
+  color: #666;
+}
+
+.orderGrid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 1.5rem;
+}
+
+.orderItems {
+  background: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.itemImage {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 0.25rem;
+}
+
+.itemDetails {
+  flex: 1;
+  padding: 0 1rem;
+}
+
+.itemDetails h3 {
+  font-size: 0.9rem;
+  color: #1a1a1a;
+  margin-bottom: 0.25rem;
+}
+
+.itemPrice {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #22c55e;
+}
+
+.summary {
+  background: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.summary h2 {
+  font-size: 1rem;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.75rem 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.summaryRow:last-of-type {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.checkoutButton {
+  width: 100%;
+  padding: 0.75rem;
+  background: #ff5722;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.checkoutButton:hover {
+  background: #f4511e;
+}
+
+.notes {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f8f8f8;
+  border-radius: 0.25rem;
+}
+
+.notes textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  resize: vertical;
+  min-height: 60px;
+  font-size: 0.9rem;
+}

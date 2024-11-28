@@ -1,0 +1,37 @@
+.addressSection {
+  background: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.addressHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.addressTitle {
+  font-size: 0.9rem;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.selectedAddress {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #1a1a1a;
+}
+
+.defaultTag {
+  font-size: 0.7rem;
+  background: #fff3e0;
+  color: #ff5722;
+  padding: 0.25rem 0.5rem;
+  border-radius: 1rem;
+  margin-left: 0.5rem;
+}

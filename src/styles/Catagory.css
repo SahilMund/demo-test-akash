@@ -1,0 +1,48 @@
+.item-container {
+    margin:4%;
+    width: 100wv;
+}
+
+.item-container h2{
+    color:#fc8a06 ;
+    margin: 1%;
+}
+  
+  .item-flex {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+  
+  .item-card {
+    display: flex;
+    width: 27%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 30px;
+    margin: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .item-card img {
+    max-width: 120px;
+    margin-bottom: 10px;
+  }
+  
+  .add-button {
+    background-color: #f00;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+.price{
+    font-weight: 600;
+}
+
+.item-content{
+    font-size: 80%;
+    padding: 1%;
+}
