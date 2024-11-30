@@ -2,22 +2,57 @@ import PropTypes from 'prop-types';
 import styles from './AddressList.module.css';
 import { useState } from 'react';
 import { AddressModal } from '../AddressModal/AddressModal';
-import { SvgArrowLeft, SvgPlus } from '../../assets';
+import { SvgArrowLeft, SvgLine, SvgPlus } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 
 
-export function AddressList({ addresses, selectedAddress, onSelectAddress, onBack }) {
+export function AddressList({ addresses, selectedAddress, onSelectAddress, onBack, setAddresses }) {
   const [showModal, setShowModal] = useState(false);
+  const [addressToEdit, setAddressToEdit] = useState(null);
+
   const navigate = useNavigate();
 
+
   const handleSaveAddress = (newAddress) => {
-    // In a real app, this would make an API call
-    const address = {
-      ...newAddress,
-      id: Math.random()?.toString(36)?.substr(2, 9)
-    };
-    // Add the new address to the list
-    onSelectAddress(address);
+    if (addressToEdit) {
+      // Update existing address
+      setAddresses(addresses.map(addr => 
+        addr.id === addressToEdit.id 
+          ? { ...newAddress, id: addressToEdit.id, name: addressToEdit.name }
+          : addr
+      ));
+      setAddressToEdit(null);
+    } else {
+      // Add new address
+      const address = {
+        ...newAddress,
+        id: Math.random().toString(36).substring(2, 9),
+        name: addresses[0].name
+      };
+      setAddresses([...addresses, address]);
+      onSelectAddress(address);
+    }
+    setShowModal(false);
+    setAddressToEdit(null);
+    
+  };
+
+  const handleRemoveAddress = (e, id) => {
+    e.stopPropagation();
+    setAddresses(addresses.filter(address => address.id !== id));
+  };
+
+
+  const handleEditAddress = (e, address) => {
+    e.stopPropagation();
+    console.log('address', address);
+    setAddressToEdit(address);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setAddressToEdit(null);
   };
 
   return (
@@ -60,9 +95,9 @@ export function AddressList({ addresses, selectedAddress, onSelectAddress, onBac
               <span>Phone: {address.phone}</span>
             </div>
             <div className={styles.addressActions}>
-                <button className={styles.actionButton}>Edit</button> 
-                <div className={styles.divider}>|</div>
-                <button className={styles.actionButton}>Remove</button>
+                <button className={styles.actionButton} onClick={(e) => handleEditAddress(e, address)}>Edit</button> 
+                <img src={SvgLine} alt="line" />                
+                <button className={styles.actionButton} onClick={(e) => handleRemoveAddress(e, address.id)}>Remove</button>
               </div>
           </div>
         ))}
@@ -70,8 +105,9 @@ export function AddressList({ addresses, selectedAddress, onSelectAddress, onBac
 
       <AddressModal
         isOpen={showModal}
-        onClose={() => setShowModal(false)}
+        onClose={handleCloseModal}
         onSave={handleSaveAddress}
+        addressToEdit={addressToEdit}
       />
     </div>
   );
@@ -81,5 +117,6 @@ AddressList.propTypes = {
   addresses: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedAddress: PropTypes.object.isRequired,
   onSelectAddress: PropTypes.func.isRequired,
-  onBack: PropTypes.func.isRequired
+  onBack: PropTypes.func.isRequired,
+  setAddresses: PropTypes.func.isRequired
 };

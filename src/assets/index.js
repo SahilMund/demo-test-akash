@@ -10,6 +10,7 @@ import SvgCheckCircle from './check-circle.svg';
 import SvgCard from './card.svg';
 import SvgEdit from './pencil.svg';
 import SvgArrowLeft from './arrow-left.svg';
+import SvgLine from './line.svg';
 
 export {
     arrowRight,
@@ -23,5 +24,6 @@ export {
     SvgCheckCircle,
     SvgCard,
     SvgEdit,
-    SvgArrowLeft
+    SvgArrowLeft,
+    SvgLine
 }   

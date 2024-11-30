@@ -1,5 +1,5 @@
 import styles from './AddressModal.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { SvgLocation } from '../../assets';
 
@@ -16,10 +16,12 @@ const states = [
 AddressModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired
+  onSave: PropTypes.func.isRequired,
+  addressToEdit: PropTypes.object
+
 };
 
-export function AddressModal({ isOpen, onClose, onSave }) {
+export function AddressModal({ isOpen, onClose, onSave, addressToEdit }) {
   const [formData, setFormData] = useState({
     state: '',
     city: '',
@@ -27,8 +29,29 @@ export function AddressModal({ isOpen, onClose, onSave }) {
     phone: '',
     address: '',
   });
+    // Add useEffect to populate form when editing
+
+    useEffect(() => {
+      console.log('addressToEdit', addressToEdit);
+      if (addressToEdit) {
+        // Parse the address string to get individual fields
+        const [address, cityState, pinCode] = addressToEdit.address.split(', ');
+        const [city, state] = cityState.split(', ');
+  
+        setFormData({
+          state: state ?? 'Kerala',
+          city: city,
+          pinCode: pinCode.replace(' - ', ''),
+          phone: addressToEdit?.phone ?? '',
+          address: address,
+          isDefault: addressToEdit?.isDefault || false
+        });
+      }
+    }, [addressToEdit]);
 
   if (!isOpen) return null;
+
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,7 +62,24 @@ export function AddressModal({ isOpen, onClose, onSave }) {
       isDefault: formData.isDefault
     });
 
-    console.log('formData', formData);
+    setFormData({
+      state: '',
+      city: '',
+      pinCode: '',
+      phone: '',
+      address: '',
+    });
+    onClose();
+  };
+
+  const handleCloseModal = () => {
+    setFormData({
+      state: '',
+      city: '',
+      pinCode: '',
+      phone: '',
+      address: '',
+    });
     onClose();
   };
 
@@ -48,7 +88,7 @@ export function AddressModal({ isOpen, onClose, onSave }) {
   };
 
   return (
-    <div className={styles.modalOverlay} onClick={onClose}>
+    <div className={styles.modalOverlay} onClick={handleCloseModal}>
       <div className={styles.modal} onClick={e => e.stopPropagation()}>
         <div className={styles.modalHeader}>
          <img src={SvgLocation} alt="location" />

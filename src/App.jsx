@@ -16,7 +16,7 @@ import PropTypes from 'prop-types';
 function App() {
 
   const [total, setTotal] = useState(0);
-  const [addresses] = useState([
+  const [addresses, setAddresses] = useState([
     {
       id: '1',
       name: 'Mike Ross',
@@ -41,6 +41,7 @@ function App() {
         addresses={addresses}
         selectedAddress={selectedAddress}
         setSelectedAddress={setSelectedAddress}
+        setAddresses={setAddresses}
       />
     </BrowserRouter>
   //added comment to check
@@ -53,7 +54,8 @@ function Routing({
   setTotal,
   addresses,
   selectedAddress,
-  setSelectedAddress 
+  setSelectedAddress,
+  setAddresses
 }) {
   const navigate = useNavigate();
 
@@ -113,6 +115,7 @@ function Routing({
           selectedAddress={selectedAddress}
           onSelectAddress={handleSelectAddress}
           onBack={handleBack}
+          setAddresses={setAddresses}
         />
         } />
       </Routes>
@@ -130,7 +133,8 @@ Routing.propTypes = {
   setTotal: PropTypes.func.isRequired,
   addresses: PropTypes.array.isRequired,
   selectedAddress: PropTypes.object.isRequired,
-  setSelectedAddress: PropTypes.func.isRequired
+  setSelectedAddress: PropTypes.func.isRequired,
+  setAddresses: PropTypes.func.isRequired
 };
 
 export default App
