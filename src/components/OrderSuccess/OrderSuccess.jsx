@@ -1,12 +1,12 @@
-import { Check } from 'lucide-react';
 import PropTypes from 'prop-types';
 import styles from './OrderSuccess.module.css';
+import { SvgCheckCircle } from '../../assets';
 
 export function OrderSuccess({ items, onBackToHome }) {
   return (
     <div className={styles.container}>
       <div className={styles.successIcon}>
-        <Check className={styles.checkIcon} size={64} strokeWidth={3} />
+        <img src={SvgCheckCircle} alt="check" />
       </div>
 
       <h1 className={styles.title}>Order Placed Successfully</h1>
@@ -20,11 +20,12 @@ export function OrderSuccess({ items, onBackToHome }) {
             {item.name}
           </div>
         ))}
-      </div>
-
-      <button className={styles.homeButton} onClick={onBackToHome}>
+          <button className={styles.homeButton} onClick={onBackToHome}>
         Back to Home
       </button>
+      </div>
+
+    
     </div>
   );
 }

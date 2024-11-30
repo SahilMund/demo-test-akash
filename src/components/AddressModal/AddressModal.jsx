@@ -1,7 +1,7 @@
-import { MapPin } from 'lucide-react';
 import styles from './AddressModal.module.css';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { SvgLocation } from '../../assets';
 
 const states = [
   'Andhra Pradesh',
@@ -21,13 +21,11 @@ AddressModal.propTypes = {
 
 export function AddressModal({ isOpen, onClose, onSave }) {
   const [formData, setFormData] = useState({
-    name: '',
     state: '',
     city: '',
     pinCode: '',
     phone: '',
     address: '',
-    isDefault: false
   });
 
   if (!isOpen) return null;
@@ -40,14 +38,20 @@ export function AddressModal({ isOpen, onClose, onSave }) {
       phone: formData.phone,
       isDefault: formData.isDefault
     });
+
+    console.log('formData', formData);
     onClose();
+  };
+
+  const handleChange = (e) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modal} onClick={e => e.stopPropagation()}>
         <div className={styles.modalHeader}>
-          <MapPin className={styles.locationIcon} size={24} />
+         <img src={SvgLocation} alt="location" />
           <h2 className={styles.modalTitle}>Add Address</h2>
         </div>
         
@@ -55,8 +59,9 @@ export function AddressModal({ isOpen, onClose, onSave }) {
           <div className={styles.formRow}>
             <select
               className={`${styles.input} ${styles.select}`}
+              name="state"
               value={formData.state}
-              onChange={e => setFormData(prev => ({ ...prev, state: e.target.value }))}
+              onChange={handleChange}
               required
             >
               <option value="">State</option>
@@ -69,19 +74,21 @@ export function AddressModal({ isOpen, onClose, onSave }) {
               type="text"
               className={styles.input}
               placeholder="City/District"
+              name="city"
               value={formData.city}
-              onChange={e => setFormData(prev => ({ ...prev, city: e.target.value }))}
+              onChange={handleChange}
               required
             />
-          </div>
+          {/* </div>
 
-          <div className={styles.formRow}>
+          <div className={styles.formRow}> */}
             <input
               type="text"
               className={styles.input}
               placeholder="Pin Code"
+              name="pinCode"
               value={formData.pinCode}
-              onChange={e => setFormData(prev => ({ ...prev, pinCode: e.target.value }))}
+              onChange={handleChange}
               required
             />
 
@@ -89,8 +96,9 @@ export function AddressModal({ isOpen, onClose, onSave }) {
               type="tel"
               className={styles.input}
               placeholder="Phone Number"
+              name="phone"
               value={formData.phone}
-              onChange={e => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+              onChange={handleChange}
               required
             />
           </div>
@@ -98,8 +106,9 @@ export function AddressModal({ isOpen, onClose, onSave }) {
           <textarea
             className={styles.textarea}
             placeholder="Enter full address"
+            name="address"  
             value={formData.address}
-            onChange={e => setFormData(prev => ({ ...prev, address: e.target.value }))}
+            onChange={handleChange}
             required
           />
 

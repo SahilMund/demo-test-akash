@@ -33,6 +33,7 @@ const constants={
             icon:"https://shaurma1.com/wwwroot/assets/images/shaurma1.png"
         }
     ]
+    
 }
 
 export default constants

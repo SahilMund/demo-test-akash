@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
-import { ArrowLeft, Plus } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import styles from './AddressList.module.css';
 import { useState } from 'react';
 import { AddressModal } from '../AddressModal/AddressModal';
+import { SvgPlus } from '../../assets';
 
 
 export function AddressList({ addresses, selectedAddress, onSelectAddress, onBack }) {
@@ -25,12 +26,13 @@ export function AddressList({ addresses, selectedAddress, onSelectAddress, onBac
         Your Addresses
       </h1>
 
+
       <div className={styles.addressGrid}>
         <div className={styles.addCard} onClick={() => setShowModal(true)}>
           <div className={styles.addIcon}>
-            <Plus size={24} />
+            <img src={SvgPlus} alt="plus" />
           </div>
-          <div className={styles.addText}>Add New Address</div>
+          <div className={styles.addText}>Add Address</div>
         </div>
 
         {addresses?.map(address => (
@@ -44,18 +46,20 @@ export function AddressList({ addresses, selectedAddress, onSelectAddress, onBac
             <div className={styles.addressHeader}>
               <div className={styles.addressName}>
                 {address.name}
-                {address.isDefault && <span className="defaultTag">Default</span>}
+                {address.isDefault && <span className={styles.defaultTag}>Default</span>}
               </div>
-              <div className={styles.addressActions}>
-                <button className={styles.actionButton}>Edit</button>
-                <button className={styles.actionButton}>Remove</button>
-              </div>
+             
             </div>
             <div className={styles.addressDetails}>
-              {address.address}
+             <span> {address.address}</span>
               <br />
-              Phone: {address.phone}
+              <span>Phone: {address.phone}</span>
             </div>
+            <div className={styles.addressActions}>
+                <button className={styles.actionButton}>Edit</button> 
+                <div className={styles.divider}>|</div>
+                <button className={styles.actionButton}>Remove</button>
+              </div>
           </div>
         ))}
       </div>

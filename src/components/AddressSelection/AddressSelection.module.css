@@ -1,10 +1,15 @@
 .addressSection {
   background: white;
-  border-radius: 0.5rem;
-  padding: 1rem;
+  padding: 8px;
   margin-bottom: 1rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   cursor: pointer;
+  border: 1px solid #03081F;
+  border-radius: 56px;
+}
+
+.addressSection:hover {
+  background: #F5F5F5;
 }
 
 .addressHeader {
@@ -14,24 +19,33 @@
 }
 
 .addressTitle {
-  font-size: 0.9rem;
+  font-size: 14px;
   color: #666;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-weight: 500;
+}
+
+.locationIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #03081F;
+  place-content: center;
+}
+
+.locationIcon img {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+  display: flex;
+  place-self: center;
 }
 
 .selectedAddress {
   margin-top: 0.5rem;
-  font-size: 0.9rem;
-  color: #1a1a1a;
-}
-
-.defaultTag {
-  font-size: 0.7rem;
-  background: #fff3e0;
-  color: #ff5722;
-  padding: 0.25rem 0.5rem;
-  border-radius: 1rem;
-  margin-left: 0.5rem;
+  font-size: 12px;
+  font-weight: 400;
+  color: #83858A;
 }

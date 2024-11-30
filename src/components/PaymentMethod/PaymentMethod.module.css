@@ -1,6 +1,6 @@
 .container {
   padding: 1rem 1.5rem;
-  max-width: 1200px;
+  max-width: 88%;
   margin: 0 auto;
 }
 
@@ -19,24 +19,29 @@
 }
 
 .paymentGrid {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr;
+  display: flex;
+  width: 100%;
+  /* grid-template-columns: 1.5fr 1fr; */
+  flex-wrap: wrap;
   gap: 1.5rem;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .methods {
   background: white;
   border-radius: 0.5rem;
   padding: 1rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  width: 50%;
 }
 
 .method {
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 1rem;
-  border: 1px solid #eee;
-  border-radius: 0.5rem;
+  border: 1px solid #FFE8CE;
+  border-radius: 56px;
   margin-bottom: 0.75rem;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -57,7 +62,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f8f8f8;
+  /* background: #f8f8f8; */
   border-radius: 0.25rem;
   margin-right: 1rem;
 }
@@ -121,17 +126,26 @@
   margin-right: 0.5rem;
 }
 
+.divider{
+  border-bottom: 1px solid #03081F;
+  margin: 1rem 0;
+}
+
 .summary {
   background: white;
-  border-radius: 0.5rem;
   padding: 1rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #000;
+  border-radius: 0.5rem;
+  width: 40%;
+  height: 100%;
+  margin: 1rem;
+
 }
 
 .amount {
-  padding: 1rem;
-  border: 1px solid #eee;
-  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 1rem;
 }
 
@@ -150,16 +164,12 @@
 .payButton {
   width: 100%;
   padding: 0.75rem;
-  background: #ff5722;
+  background: #FC8A06;
   color: white;
   border: none;
-  border-radius: 0.25rem;
+  border-radius: 100px;
   font-weight: 600;
   font-size: 0.9rem;
   cursor: pointer;
   margin-top: 1rem;
-}
-
-.payButton:hover {
-  background: #f4511e;
 }

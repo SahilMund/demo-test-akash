@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import '../styles/Profile.css';
-import PaymentModal from './PaymentModal';
+import  { useState } from 'react';
+import styles from './Profile.module.css';
+import PaymentModal from '../PaymentModal/PaymentModal';
+import { SvgCard, SvgEdit } from '../../assets';
 
 function Profile() {
   const [isEditing, setIsEditing] = useState(false);
@@ -66,6 +67,10 @@ function Profile() {
     setIsModalOpen(false);
   };
 
+  const handleAddNewCard = () => {
+    setIsModalOpen(true);
+  };
+
   const handleRemoveCard = () => {
     setPaymentCards(cards =>
       cards.filter(card => card.id !== selectedCard.id)
@@ -74,29 +79,29 @@ function Profile() {
   };
 
   return (
-    <div className="profile-container">
-      <div className="profile-header">
-        <div className="profile-header-left">
-          <button className="back-button">←</button>
+    <div className={styles.profileContainer}>
+      <div className={styles.profileHeader}>
+        <div className={styles.profileHeaderLeft}>
+          <button className={styles.backButton}>←</button>
           <h2>My Profile</h2>
         </div>
-        <button className="edit-button" onClick={handleEdit}>
+        <button className={styles.editButton} onClick={handleEdit}>
           {isEditing ? 'Save' : 'Edit'}
         </button>
       </div>
 
-      <div className="profile-content">
-        <div className="profile-header-left">
+      <div className={styles.profileContent}>
+        <div className={styles.profileHeaderLeft}>
           <img 
-            src="https://via.placeholder.com/80" 
+            src="https://s3-alpha-sig.figma.com/img/5e4a/3170/267a651a652fb2ee7a3f288490b02114?Expires=1733702400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VWoveJIPjucn6UKqySe7E~9uvOVzwQG96RR1vxLOcMccgmLZtrf2q1bwINxGkAOjHkO7FgWj1i~0e6rjbfP3ShnAT8I7BVIcFvyq149BlNLrmgv6ABaN70IeDr1rLiGEvPsEugjThaRfNo366HiMJ9fE--BdlzvX0hnquvxqcyq8Umw217CF4ZV-QT17N36rO64aqZEY40Fym1rZrZSUbZp~PvrajdtDrerA-5GXYkMgwiD~V3EqJZzTrCEddvQ7nK17jeLsUXEYKP24jRXi-9eCHVFOAMief1XjWXDgr8BA3jQ2PnNyPJJ7NQ-RGwXmBcsYLXLYq1IaXkgM~vPGsQ__" 
             alt="Profile" 
-            className="profile-image" 
+            className={styles.profileImage} 
           />
           <h3>{userData.fullName}</h3>
         </div>
 
-        <div className="profile-form">
-          <div className="form-group">
+        <div className={styles.profileForm}>
+          <div className={styles.formGroup}>
             <label>Full Name</label>
             <input
               type="text"
@@ -106,7 +111,7 @@ function Profile() {
               disabled={!isEditing}
             />
           </div>
-          <div className="form-group">
+          <div className={styles.formGroup}>
             <label>Email Address</label>
             <input
               type="email"
@@ -116,7 +121,7 @@ function Profile() {
               disabled={!isEditing}
             />
           </div>
-          <div className="form-group">
+          <div className={styles.formGroup}>
             <label>Gender</label>
             <input
               type="text"
@@ -126,7 +131,7 @@ function Profile() {
               disabled={!isEditing}
             />
           </div>
-          <div className="form-group">
+          <div className={styles.formGroup}>
             <label>Country</label>
             <input
               type="text"
@@ -138,19 +143,23 @@ function Profile() {
           </div>
         </div>
 
-        <div className="payment-methods">
+        <div className={styles.paymentMethods}>
           <h3>Saved Payment Methods</h3>
-          <div className="payment-cards">
+          <div className={styles.paymentCards}>
             {paymentCards.map(card => (
-              <div key={card.id} className="card">
-                <div>
-                  <div>{card.cardNumber}</div>
-                  <div>{card.nameOnCard}</div>
+              <div key={card.id} className={styles.card}>
+                <img src={SvgCard} alt="Card" />
+                <div >
+                  <div className={styles.cardNumber}>{card.cardNumber}</div>
+                  <div className={styles.cardName}>{card.nameOnCard}</div>
                 </div>
-                <button onClick={() => handleEditCard(card)}>✏️</button>
+                <div className={styles.editCard} 
+                onClick={() => handleEditCard(card)}>
+                  <img src={SvgEdit} alt="Edit" />
+                </div>
               </div>
             ))}
-            <div className="add-card">
+            <div className={styles.addCard} onClick={handleAddNewCard}>
               + Add New Card
             </div>
           </div>

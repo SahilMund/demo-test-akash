@@ -1,38 +1,53 @@
-import { ArrowLeft, Plus, Wallet, CreditCard } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import styles from './PaymentMethod.module.css';
 import { useState } from 'react';
 import { OrderSuccess } from '../OrderSuccess/OrderSuccess';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+import { arrowRight, SvgMastercard, SvgPaypal, SvgPlusOutlined, SvgStripe, SvgWallet } from '../../assets';
 
 
 export function PaymentMethod({ total, onBack }) {
   const [selectedMethod, setSelectedMethod] = useState('wallet');
   const [showSuccess, setShowSuccess] = useState(false);
 
+  const navigate = useNavigate();
+
   const paymentMethods = [
     {
       id: 'wallet',
       name: 'Wallet',
       description: 'Available balance: ₹150',
-      icon: <Wallet size={20} />
+      icon: SvgWallet,
+      isRadio: false,
     },
     {
       id: 'mastercard',
       name: 'MasterCard',
-      description: '**** **** **** 4589',
-      icon: <CreditCard size={20} />
+      description: '',
+      icon: SvgMastercard,
+      isRadio: true,
     },
     {
       id: 'paypal',
       name: 'PayPal',
-      description: 'Connect your PayPal account',
-      icon: <CreditCard size={20} />
+      description: '',
+        icon: SvgPaypal,
+      isRadio: true,
     },
     {
       id: 'stripe',
       name: 'Stripe',
-      description: 'Pay with your card via Stripe',
-      icon: <CreditCard size={20} />
+      description: '',
+      icon: SvgStripe,
+      isRadio: true,
+    },
+    {
+      id: 'debit',
+      name: 'Add Debit Card',
+      description: '',
+      icon: SvgPlusOutlined,
+      isRadio: false,
     }
   ];
 
@@ -43,7 +58,7 @@ export function PaymentMethod({ total, onBack }) {
   ];
 
   if (showSuccess) {
-    return <OrderSuccess items={orderItems} onBackToHome={() => window.location.href = '/'} />;
+    return <OrderSuccess items={orderItems} onBackToHome={() => navigate('/')} />;
   }
 
   return (
@@ -62,20 +77,19 @@ export function PaymentMethod({ total, onBack }) {
               onClick={() => setSelectedMethod(method.id)}
             >
               <div className={styles.methodIcon}>
-                {method.icon}
+               <img src={method.icon} alt={method.name} />
               </div>
               <div className={styles.methodDetails}>
                 <h3 className={styles.methodName}>{method.name}</h3>
-                <p className={styles.methodDescription}>{method.description}</p>
+                { method.description && <p className={styles.methodDescription}>{method.description}</p> }
               </div>
-              <div className={styles.radio} />
+              {method.isRadio ? <div className={styles.radio} /> : 
+             <> { method.id !== 'debit' && <img src={arrowRight} alt="arrowRight" />}</>
+              }
             </div>
           ))}
           
-          <button className={styles.addCard}>
-            <Plus size={20} />
-            Add Debit Card
-          </button>
+        
         </div>
         
         <div className={styles.summary}>
@@ -83,6 +97,7 @@ export function PaymentMethod({ total, onBack }) {
             <div className={styles.amountLabel}>Amount to be payed</div>
             <div className={styles.amountValue}>₹{total}</div>
           </div>
+          <div className={styles.divider} />
           <button 
             className={styles.payButton}
             onClick={() => setShowSuccess(true)}

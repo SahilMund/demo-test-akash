@@ -4,13 +4,12 @@ import Catagory from './components/Catagory'
 import ContactDetails from './components/ContactDetails'
 import Footer from './components/Footer'
 import LoginForm from './components/LoginForm'
-import Profile from './components/Profile'
+import Profile from './components/Profile/Profile'
 import RegisterForm from './components/RegisterForm'
 import Restaurant from './components/Restaurant'
 import { AddressList } from './components/AddressList/AddressList'
 import { useState } from 'react'
 import { OrderDetails } from './components/OrderDetails/OrderDetails'
-import { RestaurantList } from './components/RestaurantList/RestaurantList'
 import { PaymentMethod } from './components/PaymentMethod/PaymentMethod'
 import PropTypes from 'prop-types';
 
@@ -37,7 +36,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <AppContent 
+      <Routing 
         showPayment={showPayment}
         setShowPayment={setShowPayment}
         showAddressList={showAddressList}
@@ -53,7 +52,7 @@ function App() {
   )
 }
 
-function AppContent({ 
+function Routing({ 
   showPayment, 
   setShowPayment,
   showAddressList,
@@ -69,14 +68,20 @@ function AppContent({
   const handleShowPayment = (amount) => {
     setTotal(amount);
     setShowPayment(true);
+
+    navigate('/payment');
   };
 
+
+
   const handleBack = () => {
-    if (showAddressList) {
-      setShowAddressList(false);
-    } else if (showPayment) {
-      setShowPayment(false);
-    }
+    // if (showAddressList) {
+    //   setShowAddressList(false);
+    // } else if (showPayment) {
+    //   setShowPayment(false);
+    // }
+
+    navigate('/checkout');
   };
 
   const handleSelectAddress = (address) => {
@@ -88,9 +93,9 @@ function AppContent({
     navigate('/address');
   };
 
-  if(showPayment){
-   return <PaymentMethod total={total} onBack={handleBack} />
-  }
+  // if(showPayment){
+  //  return <PaymentMethod total={total} onBack={handleBack} />
+  // }
 
   return (
     <div className="app">
@@ -101,14 +106,15 @@ function AppContent({
         <Route path="/contact" element={<ContactDetails />} />
         <Route path="/categories" element={<Catagory />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/orders" element={<>
+        <Route path="/checkout" element={<>
           <OrderDetails
           selectedAddress={selectedAddress}
           onSelectAddress={handleRouteToAddress}
           onShowPayment={handleShowPayment}
         />
-        <RestaurantList />
+        {/* TODO: Add RestaurantList from homepage */}
         </>} />
+        <Route path="/payment" element={<PaymentMethod total={total} onBack={handleBack} />} />
         <Route path="/address" element={
           <AddressList
           addresses={addresses}
@@ -123,7 +129,7 @@ function AppContent({
   )
 }
 
-AppContent.propTypes = {
+Routing.propTypes = {
   showPayment: PropTypes.bool.isRequired,
   setShowPayment: PropTypes.func.isRequired,
   showAddressList: PropTypes.bool.isRequired,

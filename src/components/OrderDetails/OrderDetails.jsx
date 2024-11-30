@@ -9,25 +9,28 @@ export function OrderDetails({ selectedAddress, onSelectAddress, onShowPayment }
       id: 1,
       name: 'Royal Cheese Burger',
       price: 100,
+      quantity: 2,
       image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80'
     },
     {
       id: 2,
       name: 'Potato Veggies',
       price: 70,
-      image: 'https://images.unsplash.com/photo-1593282153762-a41e3ccf68b1?auto=format&fit=crop&w=800&q=80'
+      quantity: 2,
+      image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80'
     },
     {
       id: 3,
       name: 'Coca-Cola Cola',
       price: 40,
+      quantity: 1,
       image: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?auto=format&fit=crop&w=800&q=80'
     }
   ];
 
-  const subtotal = orderItems.reduce((sum, item) => sum + item.price, 0);
-  const deliveryFee = 30;
-  const total = subtotal + deliveryFee;
+  const subtotal = orderItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const salesTax = 10;
+  const total = subtotal + salesTax;
 
   return (
     <div className={styles.container}>
@@ -38,38 +41,50 @@ export function OrderDetails({ selectedAddress, onSelectAddress, onShowPayment }
       
       <div className={styles.orderGrid}>
         <div className={styles.orderItems}>
-          <AddressSelection
-            selectedAddress={selectedAddress}
-            onSelectAddress={onSelectAddress}
-          />
           {orderItems.map(item => (
             <div key={item.id} className={styles.item}>
               <img src={item.image} alt={item.name} className={styles.itemImage} />
               <div className={styles.itemDetails}>
-                <h3>{item.name}</h3>
-                <p className={styles.itemPrice}>₹{item.price}</p>
+                <div>
+                  <h3 className={styles.itemName}>{item.name}</h3>
+                  <p className={styles.itemQuantity}>{item.quantity}x item</p>
+                </div>
+                  <p className={styles.itemPrice}>₹{item.price}</p>
               </div>
             </div>
           ))}
-          <div className={styles.notes}>
-            <textarea placeholder="Add notes for your order..." />
+        
+        <div className={styles.notesContainer}>
+          <h4 className={styles.notesTitle}>Notes</h4>
+        <div className={styles.notes}>
+            <textarea rows={1}        
+ placeholder="Add order notes"></textarea>
           </div>
+        </div>
         </div>
         
         <div className={styles.summary}>
-          <h2>Order Summary</h2>
+          <AddressSelection
+            selectedAddress={selectedAddress}
+            onSelectAddress={onSelectAddress}
+          />
+         <div className={styles.divider}></div>
+       
           <div className={styles.summaryRow}>
-            <span>Subtotal ({orderItems.length} items)</span>
+            <span>Items</span>
             <span>₹{subtotal}</span>
           </div>
           <div className={styles.summaryRow}>
-            <span>Delivery Fee</span>
-            <span>₹{deliveryFee}</span>
+            <span>Sales Tax</span>
+            <span>₹{salesTax}</span>
           </div>
-          <div className={styles.summaryRow}>
-            <span>Total</span>
-            <span>₹{total}</span>
+          <div className={styles.divider}></div>
+
+          <div className={styles.subtotal}>
+            <span>Subtotal ({orderItems.length} items)</span>
+            <h3 className={styles.subtotalAmount}>₹{total}</h3>
           </div>
+         
           <button 
             className={styles.checkoutButton}
             onClick={() => onShowPayment(total)}
