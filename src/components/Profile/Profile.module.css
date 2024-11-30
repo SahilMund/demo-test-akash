@@ -124,3 +124,40 @@
   border-color: #ff6b00;
   color: #ff6b00;
 }
+
+@media screen and (max-width: 768px) {
+  .profileContainer {
+    max-width: 100%;
+    padding: 0 0.5rem;
+    width: 85%;
+  }
+
+  .profileHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    
+  }
+
+  .profileForm {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .paymentCards {
+    grid-template-columns: 1fr;
+  }
+
+  .profileImage {
+    width: 60px;
+    height: 60px;
+  }
+
+  .formGroup {
+    margin-bottom: 1rem;
+  }
+
+  .formGroup input{
+    width: 95%;
+  }
+}

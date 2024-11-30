@@ -18,8 +18,8 @@ function PaymentModal({ isOpen, onClose, cardData, onSave, onRemove }) {
   };
 
   return (
-    <div className={styles.modalOverlay}>
-      <div className={styles.modalContent}>
+    <div className={styles.modalOverlay} onClick={onClose}>
+      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
         <h2>Edit Payment Method</h2>
         <form onSubmit={handleSubmit}>
           <div className={styles.formContainer}>

@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
-import { ArrowLeft } from 'lucide-react';
 import styles from './AddressList.module.css';
 import { useState } from 'react';
 import { AddressModal } from '../AddressModal/AddressModal';
-import { SvgPlus } from '../../assets';
+import { SvgArrowLeft, SvgPlus } from '../../assets';
+import { useNavigate } from 'react-router-dom';
 
 
 export function AddressList({ addresses, selectedAddress, onSelectAddress, onBack }) {
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   const handleSaveAddress = (newAddress) => {
     // In a real app, this would make an API call
@@ -22,7 +23,7 @@ export function AddressList({ addresses, selectedAddress, onSelectAddress, onBac
   return (
     <div className={styles.container}>
       <h1 className={styles.title} onClick={onBack}>
-        <ArrowLeft size={20} />
+        <img src={SvgArrowLeft} alt="arrow-left" />
         Your Addresses
       </h1>
 
@@ -41,7 +42,10 @@ export function AddressList({ addresses, selectedAddress, onSelectAddress, onBac
             className={`${styles.addressCard} ${
               selectedAddress.id === address.id ? styles.selected : ''
             }`}
-            onClick={() => onSelectAddress(address)}
+            onClick={() => {
+              onSelectAddress(address);
+              navigate('/checkout');
+            }}
           >
             <div className={styles.addressHeader}>
               <div className={styles.addressName}>

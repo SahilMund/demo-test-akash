@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import { ArrowLeft } from 'lucide-react';
 import styles from './OrderDetails.module.css';
 import { AddressSelection } from '../AddressSelection/AddressSelection';
+import { SvgArrowLeft } from '../../assets';
 
 export function OrderDetails({ selectedAddress, onSelectAddress, onShowPayment }) {
   const orderItems = [
@@ -35,8 +35,8 @@ export function OrderDetails({ selectedAddress, onSelectAddress, onShowPayment }
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>
-        <ArrowLeft size={20} />
-        Your Order Details
+      <img src={SvgArrowLeft} alt="arrow-left" />
+      Your Order Details
       </h1>
       
       <div className={styles.orderGrid}>

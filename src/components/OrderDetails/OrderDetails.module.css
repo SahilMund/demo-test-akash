@@ -171,3 +171,39 @@ hr{
     min-height: 25px;  
     height: 25px;    
 }
+
+
+@media screen and (max-width: 480px) {
+  .container {
+    width: 88%;
+    max-width: 100%;
+  }
+
+  .orderGrid {
+    grid-template-columns: 1fr;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .orderItems {
+    width: 90%;
+  }
+
+  .notesContainer textarea {
+    width: 94%;
+  }
+
+  .itemImage {
+    width: 40px;
+    height: 40px;
+  }
+
+  .itemDetails {
+    padding: 0 0.5rem;
+  }
+
+  .checkoutButton {
+    padding: 1rem;
+    font-size: 0.85rem;
+  }
+}

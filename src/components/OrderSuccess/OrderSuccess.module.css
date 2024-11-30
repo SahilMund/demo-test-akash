@@ -75,3 +75,47 @@
 .homeButton:hover {
   background: #c27c2b;
 }
+
+@media screen and (max-width: 480px) {
+  .container {
+    max-width: 90%;
+    padding: 1.5rem 1rem;
+  }
+
+  .successIcon {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 1rem;
+  }
+
+  .successIcon img {
+    width: 160px;
+    height: 124px;
+  }
+
+  .title {
+    font-size: 16px;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    margin-bottom: 1.5rem;
+  }
+
+  .orderItems {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .item {
+    font-size: 0.875rem;
+    padding: 0.5rem 0;
+  }
+
+  .homeButton {
+    padding: 0.75rem;
+    font-size: 0.875rem;
+    margin: 15px 0;
+  }
+}

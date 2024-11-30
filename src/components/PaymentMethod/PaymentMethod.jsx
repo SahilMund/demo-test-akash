@@ -1,10 +1,9 @@
-import { ArrowLeft } from 'lucide-react';
 import styles from './PaymentMethod.module.css';
 import { useState } from 'react';
 import { OrderSuccess } from '../OrderSuccess/OrderSuccess';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import { arrowRight, SvgMastercard, SvgPaypal, SvgPlusOutlined, SvgStripe, SvgWallet } from '../../assets';
+import { arrowRight, SvgArrowLeft, SvgMastercard, SvgPaypal, SvgPlusOutlined, SvgStripe, SvgWallet } from '../../assets';
 
 
 export function PaymentMethod({ total, onBack }) {
@@ -64,7 +63,7 @@ export function PaymentMethod({ total, onBack }) {
   return (
     <div className={styles.container}>
       <h1 className={styles.title} onClick={onBack}>
-        <ArrowLeft size={20} />
+        <img src={SvgArrowLeft} alt="arrow-left" />
         Choose and Pay
       </h1>
       

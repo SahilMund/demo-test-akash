@@ -14,8 +14,7 @@ import { PaymentMethod } from './components/PaymentMethod/PaymentMethod'
 import PropTypes from 'prop-types';
 
 function App() {
-  const [showPayment, setShowPayment] = useState(false);
-  const [showAddressList, setShowAddressList] = useState(false);
+
   const [total, setTotal] = useState(0);
   const [addresses] = useState([
     {
@@ -37,10 +36,6 @@ function App() {
   return (
     <BrowserRouter>
       <Routing 
-        showPayment={showPayment}
-        setShowPayment={setShowPayment}
-        showAddressList={showAddressList}
-        setShowAddressList={setShowAddressList}
         total={total}
         setTotal={setTotal}
         addresses={addresses}
@@ -53,10 +48,7 @@ function App() {
 }
 
 function Routing({ 
-  showPayment, 
-  setShowPayment,
-  showAddressList,
-  setShowAddressList,
+
   total,
   setTotal,
   addresses,
@@ -67,39 +59,39 @@ function Routing({
 
   const handleShowPayment = (amount) => {
     setTotal(amount);
-    setShowPayment(true);
 
     navigate('/payment');
   };
 
-
-
   const handleBack = () => {
-    // if (showAddressList) {
-    //   setShowAddressList(false);
-    // } else if (showPayment) {
-    //   setShowPayment(false);
-    // }
-
     navigate('/checkout');
   };
 
   const handleSelectAddress = (address) => {
     setSelectedAddress(address);
-    setShowAddressList(false);
   };
 
   const handleRouteToAddress = () => {
     navigate('/address');
   };
 
-  // if(showPayment){
-  //  return <PaymentMethod total={total} onBack={handleBack} />
-  // }
+  // const items = [
+  //   { name: 'Royal Cheese Burger', price: '₹120' },
+  //   { name: 'Potato Veggies', price: '₹70' },
+  //   { name: 'Coke Coca Cola', price: '₹40' },
+  // ];
 
   return (
     <div className="app">
       <Routes>
+        {/* <Route path="/" element={
+          <OrderSummary
+            items={items}
+            discounts={"-₹0.33"}
+            deliveryFee={"₹0.33"}
+            total={"₹230"}
+          />
+        } /> */}
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/restaurant" element={<Restaurant />} />

@@ -48,4 +48,9 @@
   font-size: 12px;
   font-weight: 400;
   color: #83858A;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
 }

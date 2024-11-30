@@ -1,7 +1,8 @@
 import  { useState } from 'react';
 import styles from './Profile.module.css';
 import PaymentModal from '../PaymentModal/PaymentModal';
-import { SvgCard, SvgEdit } from '../../assets';
+import { SvgArrowLeft, SvgCard, SvgEdit } from '../../assets';
+import { useNavigate } from 'react-router-dom';
 
 function Profile() {
   const [isEditing, setIsEditing] = useState(false);
@@ -38,9 +39,14 @@ function Profile() {
 
   const [selectedCard, setSelectedCard] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleEdit = () => {
     setIsEditing(!isEditing);
+  };
+
+  const handleBack = () => {
+    navigate(-1)
   };
 
   const handleChange = (e) => {
@@ -57,17 +63,25 @@ function Profile() {
   };
 
   const handleSaveCard = (updatedCard) => {
-    setPaymentCards(cards =>
-      cards.map(card =>
-        card.id === selectedCard.id
-          ? { ...card, ...updatedCard }
-          : card
-      )
-    );
+    setPaymentCards(cards => {
+      if (selectedCard) {
+        // Update existing card
+        return cards.map(card =>
+          card.id === selectedCard.id
+            ? { ...card, ...updatedCard }
+            : card
+        );
+      } else {
+        // Add new card
+        const newId = Math.max(...cards.map(card => card.id), 0) + 1;
+        return [...cards, { id: newId, ...updatedCard }];
+      }
+    });
     setIsModalOpen(false);
   };
 
   const handleAddNewCard = () => {
+    setSelectedCard(null); // Clear selected card since we're adding new
     setIsModalOpen(true);
   };
 
@@ -82,7 +96,7 @@ function Profile() {
     <div className={styles.profileContainer}>
       <div className={styles.profileHeader}>
         <div className={styles.profileHeaderLeft}>
-          <button className={styles.backButton}>←</button>
+         <img src={SvgArrowLeft}  className={styles.backButton} alt="arrow-left" onClick={handleBack} />
           <h2>My Profile</h2>
         </div>
         <button className={styles.editButton} onClick={handleEdit}>

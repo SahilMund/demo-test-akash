@@ -114,3 +114,43 @@
   width: 15rem;
   place-self: end;
 }
+
+@media screen and (max-width: 768px) {
+  .modal {
+    width: 95%;
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  .formRow {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .input {
+    width: 92%;
+  }
+
+  .textarea {
+    width: 92%;
+  }
+
+  .select {
+    width: 102%;
+  }
+
+  .submitButton {
+    width: 100%;
+    margin-top: 1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .modalHeader {
+    margin-bottom: 1rem;
+  }
+
+  .modalTitle {
+    font-size: 1rem;
+  }
+}
