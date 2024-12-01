@@ -1,7 +1,21 @@
+import { useNavigate } from 'react-router-dom';
 import styles from './OrderSummary.module.css';
 import PropTypes from 'prop-types';
 
-function OrderSummary  ({ items, discounts, deliveryFee, total })  {
+function OrderSummary  ({ items, discounts, deliveryFee, total, onRemove, increaseQuantity })  {
+
+const navigate = useNavigate();
+  const handleCheckout = () => {
+    navigate('/checkout', {
+      state: {
+        items,
+        discounts, 
+        deliveryFee,
+        total
+      }
+    });
+  };
+
   return (
     <div>
         <div className={styles.share}>
@@ -18,12 +32,14 @@ function OrderSummary  ({ items, discounts, deliveryFee, total })  {
             <div className={styles.itemsContainer}>
                 {items.map((item, index) => (
                 <div key={index} className={styles.item}>
-                    <div className={styles.increment}>1X</div>
+                    <div className={styles.increment} onClick={()=>increaseQuantity(item)}>{item.quantity}X</div>
                     <div className={styles.itemDetails}>
-                    <span className={styles.itemName}>{item.name}</span>
-                    <span className={styles.itemPrice}>{item.price}</span>
+                    <span className={styles.itemName}>{item.title}</span>
+                    <span className={styles.itemPrice}>₹ {item.price}</span>
                     </div>
-                    <button className={styles.removeButton}><img src="https://img.icons8.com/?size=100&id=7837&format=png&color=FA5252" alt="delete" /></button>
+                    <button className={styles.removeButton}
+                    onClick={()=>onRemove(item)}
+                    ><img src="https://img.icons8.com/?size=100&id=7837&format=png&color=FA5252" alt="delete" /></button>
                 </div>
                 ))}
             </div>
@@ -66,14 +82,16 @@ function OrderSummary  ({ items, discounts, deliveryFee, total })  {
                     <br /><b>Collection</b><br /> Starts at 16:50
                     </div>
                 </div>
-                <button className={styles.checkoutButton}> <img src="https://img.icons8.com/?size=100&id=87725&format=png&color=FFFFFF" alt="check-out-btn" />Checkout!</button>
+                <button className={styles.checkoutButton} onClick={handleCheckout}> 
+                    <img src="https://img.icons8.com/?size=100&id=87725&format=png&color=FFFFFF" 
+                    alt="check-out-btn" />Checkout!</button>
             </div>
         </div>
     </div>
   );
 };
 
-export default OrderSummary;
+export default OrderSummary;
 
 OrderSummary.propTypes = {
   items: PropTypes.arrayOf(
@@ -84,5 +102,7 @@ OrderSummary.propTypes = {
   ).isRequired,
   discounts: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   deliveryFee: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  total: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
+  total: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  onRemove: PropTypes.func.isRequired,
+  increaseQuantity: PropTypes.func.isRequired
 };

@@ -2,39 +2,20 @@ import PropTypes from 'prop-types';
 import { ArrowLeft } from 'lucide-react';
 import styles from './OrderDetails.module.css';
 import { AddressSelection } from '../AddressSelection/AddressSelection';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function OrderDetails({ selectedAddress, onSelectAddress, onShowPayment }) {
-  const orderItems = [
-    {
-      id: 1,
-      name: 'Royal Cheese Burger',
-      price: 100,
-      quantity: 2,
-      image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80'
-    },
-    {
-      id: 2,
-      name: 'Potato Veggies',
-      price: 70,
-      quantity: 2,
-      image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80'
-    },
-    {
-      id: 3,
-      name: 'Coca-Cola Cola',
-      price: 40,
-      quantity: 1,
-      image: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?auto=format&fit=crop&w=800&q=80'
-    }
-  ];
 
-  const subtotal = orderItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const { state } = useLocation();
+  const { items: orderItems, discounts, deliveryFee, total: orderTotal } = state;
+
   const salesTax = 10;
-  const total = subtotal + salesTax;
+  const total = orderTotal + salesTax;
+  const navigate = useNavigate();
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>
+      <h1 className={styles.title} onClick={()=>navigate(-1)}>
         <ArrowLeft size={20} />
         Your Order Details
       </h1>
@@ -46,7 +27,7 @@ export default function OrderDetails({ selectedAddress, onSelectAddress, onShowP
               <img src={item.image} alt={item.name} className={styles.itemImage} />
               <div className={styles.itemDetails}>
                 <div>
-                  <h3 className={styles.itemName}>{item.name}</h3>
+                  <h3 className={styles.itemName}>{item.title}</h3>
                   <p className={styles.itemQuantity}>{item.quantity}x item</p>
                 </div>
                   <p className={styles.itemPrice}>₹{item.price}</p>
@@ -72,7 +53,7 @@ export default function OrderDetails({ selectedAddress, onSelectAddress, onShowP
        
           <div className={styles.summaryRow}>
             <span>Items</span>
-            <span>₹{subtotal}</span>
+            <span>₹{orderTotal}</span>
           </div>
           <div className={styles.summaryRow}>
             <span>Sales Tax</span>
