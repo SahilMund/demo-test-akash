@@ -3,7 +3,7 @@ import { ArrowLeft } from 'lucide-react';
 import styles from './OrderDetails.module.css';
 import { AddressSelection } from '../AddressSelection/AddressSelection';
 
-export function OrderDetails({ selectedAddress, onSelectAddress, onShowPayment }) {
+export default function OrderDetails({ selectedAddress, onSelectAddress, onShowPayment }) {
   const orderItems = [
     {
       id: 1,

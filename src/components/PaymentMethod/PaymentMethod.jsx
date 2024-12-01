@@ -1,13 +1,13 @@
 import { ArrowLeft } from 'lucide-react';
 import styles from './PaymentMethod.module.css';
 import { useState } from 'react';
-import { OrderSuccess } from '../OrderSuccess/OrderSuccess';
+import  OrderSuccess  from '../OrderSuccess/OrderSuccess';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { arrowRight, SvgMastercard, SvgPaypal, SvgPlusOutlined, SvgStripe, SvgWallet } from '../../assets';
 
 
-export function PaymentMethod({ total, onBack }) {
+export default function PaymentMethod({ total, onBack }) {
   const [selectedMethod, setSelectedMethod] = useState('wallet');
   const [showSuccess, setShowSuccess] = useState(false);
 

@@ -6,7 +6,7 @@ import { AddressModal } from '../AddressModal/AddressModal';
 import { SvgPlus } from '../../assets';
 
 
-export function AddressList({ addresses, selectedAddress, onSelectAddress, onBack }) {
+export default function AddressList({ addresses, selectedAddress, onSelectAddress, onBack }) {
   const [showModal, setShowModal] = useState(false);
 
   const handleSaveAddress = (newAddress) => {

@@ -1,0 +1,33 @@
+.categories {
+    padding: 3rem 0;
+  }
+  
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    max-width: 1440px;
+    gap: 1rem;
+  }
+  
+  @media (max-width: 992px) {
+    .container {
+      padding: 0 1rem;
+    }
+    
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  

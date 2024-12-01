@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import styles from './OrderSuccess.module.css';
 import { SvgCheckCircle } from '../../assets';
 
-export function OrderSuccess({ items, onBackToHome }) {
+export default function OrderSuccess({ items, onBackToHome }) {
   return (
     <div className={styles.container}>
       <div className={styles.successIcon}>

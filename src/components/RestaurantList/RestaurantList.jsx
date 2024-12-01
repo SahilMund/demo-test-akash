@@ -9,7 +9,7 @@ const restaurants = [
   { id: 6, name: "Shaurma 1", logo: "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=800&q=80" }
 ];
 
-export function RestaurantList() {
+export default function RestaurantList() {
   return (
     <section className={styles.section}>
       <h2 className={styles.title}>Similar Restaurants</h2>

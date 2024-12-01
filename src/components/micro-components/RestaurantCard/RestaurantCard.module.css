@@ -1,0 +1,26 @@
+.card {
+    background: #FC8A06;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .card:hover {
+    transform: translateY(-4px);
+  }
+  
+  .logo {
+    width: 100%;
+    object-fit: contain;
+  }
+  
+  .name {
+    font-size: 0.875rem;
+    background-color: #FC8A06;
+    color: #FFFFFF;
+    font-weight: 500;
+    padding: 1rem;
+    border-radius: 0 0 12px 12px;
+  }

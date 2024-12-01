@@ -3,7 +3,7 @@ import styles from './Profile.module.css';
 import PaymentModal from '../PaymentModal/PaymentModal';
 import { SvgCard, SvgEdit } from '../../assets';
 
-function Profile() {
+const Profile=()=> {
   const [isEditing, setIsEditing] = useState(false);
   const [userData, setUserData] = useState({
     fullName: 'Mike Ross',

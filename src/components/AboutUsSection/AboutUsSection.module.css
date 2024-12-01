@@ -1,0 +1,140 @@
+.aboutUs {
+    padding: 4rem 0;
+    background: #f8f9fa;
+    width: 92%;
+    margin: auto;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+  }
+  
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .tabs {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .tab {
+    padding: 0.5rem 1.5rem;
+    border-radius: 999px;
+    border: 1px solid #e5e7eb;
+    background: transparent;
+    cursor: pointer;
+  }
+  
+  .activeTab {
+    border-color: #ff6b00;
+    color: #ff6b00;
+  }
+  
+  .content {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+  }
+  
+  .questionList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .questionBtn {
+    text-align: left;
+    padding: 1rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: 500;
+  }
+  
+  .activeQuestion {
+    background: #ff6b00;
+    color: white;
+  }
+  
+  .stepsContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .step {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+  }
+  
+  .stepIcon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .stepTitle {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .stepDescription {
+    color: #666;
+    font-size: 0.875rem;
+  }
+  
+  .orderInfo {
+    grid-column: 2;
+    color: #666;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  
+  @media (max-width: 992px) {
+    .container {
+      padding: 0 1rem;
+    }
+  
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+  
+    .tabs {
+      width: 100%;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+  
+    .content {
+      grid-template-columns: 1fr;
+    }
+  
+    .stepsContainer {
+      grid-template-columns: 1fr;
+    }
+  
+    .orderInfo {
+      grid-column: 1;
+    }
+  }

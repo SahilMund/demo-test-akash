@@ -32,7 +32,42 @@ const constants={
             name:"Shaurma 1",
             icon:"https://shaurma1.com/wwwroot/assets/images/shaurma1.png"
         }
-    ]
+    ],
+    DELIVERY_INFO : {
+        title: 'Delivery Information',
+        icon: 'https://img.icons8.com/?size=100&id=68Lvfc60zzLV&format=png&color=000000',
+        details: [
+          { day: 'Monday', hours: '12:00 AM - 3:00 AM, 8:00 AM - 3:00 AM' },
+          { day: 'Tuesday', hours: '8:00 AM - 3:00 AM' },
+          { day: 'Wednesday', hours: '8:00 AM - 3:00 AM' },
+          { day: 'Thusday', hours: '8:00 AM - 3:00 AM' },
+          { day: 'Friday', hours: '8:00 AM - 3:00 AM' },
+          { day: 'Saturday', hours: '8:00 AM - 3:00 AM' },
+          { day: 'Sunday', hours: '8:00 AM - 12:00 AM' },
+        ],
+        estimatedDeliveryTime: '20 min',
+    },
+    CONTACT_INFO:{
+        title: 'Contact Information',
+        icon: 'https://img.icons8.com/?size=100&id=MgbEPOv1uEpL&format=png&color=000000',
+        details: [
+          { label: 'Phone number', value: '+934443-43' },
+          { label: 'Website', value: 'http://mcdonalds.uk/' },
+        ],
+    },
+    OPERATIONAL_TIMES:{
+        title: 'Operational Times',
+        icon: 'https://img.icons8.com/?size=100&id=26040&format=png&color=FFFFFF',
+        details: [
+          { day: 'Monday', hours: '8:00 AM - 3:00 AM' },
+          { day: 'Tuesday', hours: '8:00 AM - 3:00 AM' },
+          { day: 'Wednesday', hours: '8:00 AM - 3:00 AM' },
+          { day: 'Thusday', hours: '8:00 AM - 3:00 AM' },
+          { day: 'Friday', hours: '8:00 AM - 3:00 AM' },
+          { day: 'Saturday', hours: '8:00 AM - 3:00 AM' },
+          { day: 'Sunday', hours: '8:00 AM - 3:00 AM' }
+        ],
+      }
     
 }
 

@@ -1,0 +1,115 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+    height: auto; 
+  }
+  
+  .descContainer {
+    display: flex;
+    height: auto;
+    background-color: #e8e8e8;
+    padding: 3%;
+    width: auto;
+  }
+  
+  .descContainer p {
+    font-size: 80%;
+  }
+  
+  .descContainer h4 {
+    margin-bottom: 2%;
+  }
+  
+  .order {
+    width: 33%;
+  }
+  
+  .order img {
+    width: 30%;
+    margin-bottom: 2%;
+  }
+  
+  .download img {
+    width: 30%;
+  }
+  
+  .social {
+    width: 33%;
+  }
+  
+  .social p {
+    margin-left: 4%;
+  }
+  
+  .social img {
+    width: 7%;
+    margin: 3%;
+  }
+  
+  .searchInputField {
+    width: 60%;
+    height: 50%;
+    padding: 2% 5%;
+    border-style: none;
+    border-radius: 50px 0px 0px 50px;
+    background-color: #d9d9d9;
+  }
+  
+  .subscribeButton {
+    border-radius: 30px;
+    font-size: 75%;
+    background-color: #fc8a06;
+    color: white;
+    margin-left: -15px;
+  }
+  
+  .impLink {
+    width: 33%;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .impLink li {
+    list-style-type: none;
+    padding: 3% 0%;
+    font-size: 80%;
+    width: max-content;
+  }
+  
+  .copyRight {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #03081f;
+    color: white;
+  }
+  
+  .terms {
+    display: flex;
+    width: auto;
+    justify-content: space-around;
+  }
+
+    /* Media Queries for Responsiveness */
+    @media (max-width: 450px) {
+        .descContainer{
+            flex-direction: column;
+            /* align-items: center; */
+          }
+
+        .impLink {
+          flex-direction: column;
+          align-items: center;
+        }
+      
+        .order, .social, .impLink {
+          width: 100%;
+          margin-bottom: 20px;
+        }
+        .terms {
+            display: none;
+        }
+        .descContainer{
+          padding: 40px 0px 20px 30px;
+        }
+      }

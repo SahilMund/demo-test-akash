@@ -1,16 +1,15 @@
 import './App.css'
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
-import Catagory from './components/Catagory'
-import ContactDetails from './components/ContactDetails'
-import Footer from './components/Footer'
-import LoginForm from './components/LoginForm'
-import Profile from './components/Profile/Profile'
-import RegisterForm from './components/RegisterForm'
-import Restaurant from './components/Restaurant'
-import { AddressList } from './components/AddressList/AddressList'
 import { useState } from 'react'
-import { OrderDetails } from './components/OrderDetails/OrderDetails'
-import { PaymentMethod } from './components/PaymentMethod/PaymentMethod'
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
+import 'leaflet/dist/leaflet.css';
+import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
+import ProfilePage from './pages/ProfilePage'
+import HomePage from './pages/HomePage'
+import PaymentPage from './pages/PaymentPage'
+import ProductPage from './pages/ProductPage';
+import AddressPage from './pages/AddressPage';
+import CheckOutPage from './pages/CheckOutPage';
 import PropTypes from 'prop-types';
 
 function App() {
@@ -48,7 +47,7 @@ function App() {
         setSelectedAddress={setSelectedAddress}
       />
     </BrowserRouter>
-  //added comment to check
+  
   )
 }
 
@@ -100,31 +99,24 @@ function Routing({
   return (
     <div className="app">
       <Routes>
-        <Route path="/register" element={<RegisterForm />} />
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/restaurant" element={<Restaurant />} />
-        <Route path="/contact" element={<ContactDetails />} />
-        <Route path="/categories" element={<Catagory />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/checkout" element={<>
-          <OrderDetails
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/product" element={<ProductPage />} />
+        <Route path="/checkout" element={<CheckOutPage 
           selectedAddress={selectedAddress}
-          onSelectAddress={handleRouteToAddress}
-          onShowPayment={handleShowPayment}
-        />
-        {/* TODO: Add RestaurantList from homepage */}
-        </>} />
-        <Route path="/payment" element={<PaymentMethod total={total} onBack={handleBack} />} />
-        <Route path="/address" element={
-          <AddressList
+          handleShowPayment={handleShowPayment}
+          handleRouteToAddress={handleRouteToAddress}/>} />
+        <Route path="/payment" element={<PaymentPage 
+          total={total}
+          handleBack={handleBack}/>} />
+        <Route path="/address" element={<AddressPage 
           addresses={addresses}
           selectedAddress={selectedAddress}
-          onSelectAddress={handleSelectAddress}
-          onBack={handleBack}
-        />
-        } />
-      </Routes>
-      <Footer />
+          handleSelectAddress={handleSelectAddress}
+          handleBack={handleBack}/>} />
+        </Routes>
     </div>
   )
 }
