@@ -1,45 +1,31 @@
 import  { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Profile.module.css';
 import PaymentModal from '../PaymentModal/PaymentModal';
 import { SvgCard, SvgEdit } from '../../assets';
 
-const Profile=()=> {
+const Profile=({profileData={}})=> {
+  
   const [isEditing, setIsEditing] = useState(false);
+  const navigate = useNavigate()
+  const handleReturn =()=>{
+    navigate('/home')
+  }
   const [userData, setUserData] = useState({
     fullName: 'Mike Ross',
     email: 'mikeross@gmail.com',
     gender: 'Male',
     country: 'India'
   });
-
-  const [paymentCards, setPaymentCards] = useState([
-    {
-      id: 1,
-      cardNumber: 'xxxx xxxx xxxx 1234',
-      nameOnCard: 'Mike Ross',
-      expiration: '11/26',
-      cvc: '123'
-    },
-    {
-      id: 2,
-      cardNumber: 'xxxx xxxx xxxx 6789',
-      nameOnCard: 'Mike Ross',
-      expiration: '03/25',
-      cvc: '456'
-    },
-    {
-      id: 3,
-      cardNumber: 'xxxx xxxx xxxx 3468',
-      nameOnCard: 'Mike Ross',
-      expiration: '07/24',
-      cvc: '789'
-    }
-  ]);
+  const [paymentCards, setPaymentCards] = useState(profileData?.cardDetails);
 
   const [selectedCard, setSelectedCard] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleEdit = () => {
+    // if(isEditing){
+
+    // }}
     setIsEditing(!isEditing);
   };
 
@@ -82,7 +68,7 @@ const Profile=()=> {
     <div className={styles.profileContainer}>
       <div className={styles.profileHeader}>
         <div className={styles.profileHeaderLeft}>
-          <button className={styles.backButton}>←</button>
+          <button className={styles.backButton} onClick={handleReturn}>←</button>
           <h2>My Profile</h2>
         </div>
         <button className={styles.editButton} onClick={handleEdit}>

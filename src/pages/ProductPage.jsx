@@ -1,41 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {Header,McDonaldBanner,ContactDetails,Map,Reviews,PopularRestaurants,Footer,Deals,Catagories,OrderSummary} from '../components/index.component'
+import apiCall from '../utils/API'
 
 const ProductPage = () => {
+  const [productDetails,setProductDetails] = useState('')
+  const getProductDetails = async ()=>{
+    const resopnse = await apiCall(
+      'http://localhost:8080/api/all/productPage',
+      "GET",
+      {Authorization:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFrYXNoMUBnbWFpbC5jb20iLCJ1c2VySWQiOjE3MzI5NTA4OTE1MDUsImlhdCI6MTczMjk1MDk1OX0.6dmZoF9MURjjUk2RgPvlp67wIzaGJ1MpIAMhiBNlzTk"},
+    )
+    setProductDetails(resopnse)
+  }
+  
+  useEffect(()=>{
+    getProductDetails()
+  },[])
 
   const [cartItems, setCartItems] = useState([]);
-
-  const data = [
-    {
-      id:1,
-      title: 'Royal Cheese Burger with extra Fries',
-      price: 120,
-      imageUrl: 'https://thesaltedpotato.com/wp-content/uploads/2022/04/twice-fried-fries.jpg',
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, dolor? Autem deleniti debitis dolores maiores et atque ullam "
-    },
-    {
-      id:2,
-      title: 'The classics for 3',
-      price: 70,
-      imageUrl: 'https://thesaltedpotato.com/wp-content/uploads/2022/04/twice-fried-fries.jpg',
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, dolor? Autem deleniti debitis dolores maiores et atque ullam "
-    },
-    {
-        id:3,
-        title: 'Royal Cheese Burger with medium Fries',
-        price: 100,
-        imageUrl: 'https://thesaltedpotato.com/wp-content/uploads/2022/04/twice-fried-fries.jpg',
-        desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, dolor? Autem deleniti debitis dolores maiores et atque ullam "
-      },
-      {
-        id:4,
-        title: 'The classics for 4',
-        price: 50,
-        imageUrl: 'https://thesaltedpotato.com/wp-content/uploads/2022/04/twice-fried-fries.jpg',
-        desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, dolor? Autem deleniti debitis dolores maiores et atque ullam "
-      }
-        
-  ];
 
   const handleAddToCart = (item) => {
     setCartItems([...cartItems, {
@@ -58,7 +40,6 @@ const ProductPage = () => {
     <>
         <Header/>
         <McDonaldBanner/>
-        {/* need to manage by state */}
         {cartItems && cartItems?.length > 0 && <OrderSummary
             items={cartItems}
             onRemove={handleRemoveFromCart}
@@ -67,9 +48,9 @@ const ProductPage = () => {
             deliveryFee={"₹6.33"}
             total={total}/>}
         <Deals/>
-        <Catagories data={data} handleAddToCart={handleAddToCart}/>
-        <Catagories data={data} handleAddToCart={handleAddToCart}/>
-        <Catagories data={data} handleAddToCart={handleAddToCart}/>
+        <Catagories data={productDetails?.result?.burgerProductList} handleAddToCart={handleAddToCart}/>
+        <Catagories data={productDetails?.result?.friesProductList} handleAddToCart={handleAddToCart}/>
+        <Catagories data={productDetails?.result?.coldDrinkProductList} handleAddToCart={handleAddToCart}/>
         <ContactDetails/>
         <Map/>
         <Reviews/>

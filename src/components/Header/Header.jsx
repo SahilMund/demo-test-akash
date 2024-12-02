@@ -1,9 +1,20 @@
-// components/Header/Header.jsx
 import React, { useState } from 'react';
+import { useNavigate ,Link} from 'react-router-dom';
 import styles from './Header.module.css';
+import constants from '../../utils/constants';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate =useNavigate()
+  const handleProfile=()=>{
+    console.log("hellooo");
+    
+    navigate('/profile')
+    // if(loggedIn){
+    // }else{
+    //   navigate('/login')
+    // }
+  }
   
   return (
     <header className={styles.header}>
@@ -24,17 +35,17 @@ export default function Header() {
       </div>
 
       <nav className={styles.nav}>
-        <div className={styles.logo}>Order.uk</div>
+        <div className={styles.logo}><img src={constants.APP_LOGO} alt="app-logo" /></div>
         
         <div className={styles.desktopMenu}>
-          <a href="#" className={`${styles.menuItem} ${styles.active}`}>Home</a>
+          <Link href="#" className={`${styles.menuItem} ${styles.active}`} to='/home'>Home</Link>
           <a href="#" className={styles.menuItem}>Browse Menu</a>
           <a href="#" className={styles.menuItem}>Special Offers</a>
           <a href="#" className={styles.menuItem}>Restaurants</a>
           <a href="#" className={styles.menuItem}>Track Order</a>
         </div>
 
-        <button className={styles.loginBtn}>Login/Signup</button>
+        <button className={styles.loginBtn} onClick={handleProfile}>Login/Signup</button>
 
         <button 
           className={styles.hamburger}

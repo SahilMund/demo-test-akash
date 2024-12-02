@@ -34,7 +34,7 @@ const navigate = useNavigate();
                 <div key={index} className={styles.item}>
                     <div className={styles.increment} onClick={()=>increaseQuantity(item)}>{item.quantity}X</div>
                     <div className={styles.itemDetails}>
-                    <span className={styles.itemName}>{item.title}</span>
+                    <span className={styles.itemName}>{item.name}</span>
                     <span className={styles.itemPrice}>₹ {item.price}</span>
                     </div>
                     <button className={styles.removeButton}

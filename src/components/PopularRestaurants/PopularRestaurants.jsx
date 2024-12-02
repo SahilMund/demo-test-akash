@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { RestaurantCard } from '../micro-components';
 import styles from './PopularRestaurants.module.css';
 
@@ -10,12 +11,17 @@ export default function PopularRestaurants() {
     { id: 5, name: 'Burger King', logo: '/images/restaurants/bk.svg' },
     { id: 6, name: 'Shaurma 1', logo: '/images/restaurants/n1.svg' }
   ];
+  const navigate = useNavigate()
+  const handleClick=()=>{
+    navigate('/product')
+    window.scrollTo(0,0)
+  }
 
   return (
     <section className={styles.restaurants}>
       <div className={styles.container}>
         <h2 className={styles.title}>Popular Restaurants</h2>
-        <div className={styles.grid}>
+        <div className={styles.grid} onClick={handleClick}>
           {restaurants.map(restaurant => (
             <RestaurantCard key={restaurant.id} {...restaurant} />
           ))}

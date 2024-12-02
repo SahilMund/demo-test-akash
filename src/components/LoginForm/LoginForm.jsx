@@ -1,22 +1,32 @@
 import React, { useState } from 'react';
+import { Link,useNavigate } from "react-router-dom";
 import constants from '../../utils/constants';
 import styles from './LoginForm.module.css';
-import axios from 'axios';
+import apiCall from '../../utils/API'
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3000/login', {
-        email,
-        password,
-      });
+      const response = await apiCall(
+        'http://localhost:8080/api/user/signin',
+        "POST",
+        {},
+        {
+          email:email,
+          password:password
+        }
+      )
+      console.log("response",response);
+      localStorage.setItem(response.userId.toString(),response.token)
 
       setEmail('');
       setPassword('');
+      navigate('/home')
     } catch (err) {
       console.log(err);
     }
@@ -57,7 +67,7 @@ const LoginForm = () => {
           </button>
         </form>
         <p className={styles.signUp}>
-          Don't you have an account? <a href="#">Sign up</a>
+          Don't you have an account? <Link to='/register'>Sign up</Link>
         </p>
       </div>
       <div className={styles.imageContainer}>

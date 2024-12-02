@@ -1,28 +1,37 @@
 import React, { useState } from 'react';
+import { Link,useNavigate } from "react-router-dom";
 import constants from '../../utils/constants';
-import styles from './RegisterForm.module.css'; // Import the CSS module
-import axios from 'axios';
+import styles from './RegisterForm.module.css'; 
+import apiCall from '../../utils/API'
 
 const RegisterForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3000/register', {
-        name,
-        email,
-        password,
-        phone,
-      });
+      const response = await apiCall(
+        'http://localhost:8080/api/user/signup',
+        "POST",
+        {},
+        {
+          email:email,
+          name:name,
+          password:password,
+          phone:phone
+        }
+      )
+      
       // Clear the form
       setName('');
       setEmail('');
       setPassword('');
       setPhone('');
+      navigate('/login')
     } catch (err) {
       console.log(err);
     }
@@ -72,7 +81,7 @@ const RegisterForm = () => {
           <button type="submit">Continue</button>
         </form>
         <p className={styles.signIn}>
-          Already have an account? <a href="#">Sign in</a>
+          Already have an account? <Link to='/login'>Sign in</Link>
         </p>
       </div>
       <div className={styles.imageContainer}>

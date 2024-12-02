@@ -17,7 +17,7 @@ export default function PaymentMethod({ total, onBack }) {
     {
       id: 'wallet',
       name: 'Wallet',
-      description: 'Available balance: ₹150',
+      description: 'Available balance: ₹15000',
       icon: SvgWallet,
       isRadio: false,
     },
@@ -58,7 +58,7 @@ export default function PaymentMethod({ total, onBack }) {
   ];
 
   if (showSuccess) {
-    return <OrderSuccess items={orderItems} onBackToHome={() => navigate('/')} />;
+    return <OrderSuccess items={orderItems} onBackToHome={() => navigate('/home')} />;
   }
 
   return (
