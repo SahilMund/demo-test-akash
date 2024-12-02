@@ -3,8 +3,9 @@ import styles from './PaymentMethod.module.css';
 import { useState } from 'react';
 import  OrderSuccess  from '../OrderSuccess/OrderSuccess';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 import { arrowRight, SvgMastercard, SvgPaypal, SvgPlusOutlined, SvgStripe, SvgWallet } from '../../assets';
+import apiCall from '../../utils/API';
 
 
 export default function PaymentMethod({ total, onBack }) {
@@ -12,6 +13,30 @@ export default function PaymentMethod({ total, onBack }) {
   const [showSuccess, setShowSuccess] = useState(false);
 
   const navigate = useNavigate();
+  const { state } = useLocation();
+  const { orderItems ,orderTotal } = state;
+
+  const formattedOrderItems = orderItems.map(item => ({
+    productId: item.productId,
+    quantity: item.quantity
+  }));
+
+  const handlePayment= async()=>{
+    const payLoad={
+      items:formattedOrderItems,
+      totalAmount:orderTotal
+    }
+    const response = await apiCall(
+      import.meta.env.VITE_BACKEND_BASE_URL+'/api/all/orderComplete',
+      "POST",
+      {Authorization:localStorage.getItem('token')},
+      payLoad)
+    
+    if(response==0){
+      navigate('/login')
+    }
+    if(response.orderId)setShowSuccess(true)
+  }
 
   const paymentMethods = [
     {
@@ -51,11 +76,6 @@ export default function PaymentMethod({ total, onBack }) {
     }
   ];
 
-  const orderItems = [
-    { name: 'Royal Cheese Burger' },
-    { name: 'Potato Veggies' },
-    { name: 'Coke Coca Cola' }
-  ];
 
   if (showSuccess) {
     return <OrderSuccess items={orderItems} onBackToHome={() => navigate('/home')} />;
@@ -95,12 +115,12 @@ export default function PaymentMethod({ total, onBack }) {
         <div className={styles.summary}>
           <div className={styles.amount}>
             <div className={styles.amountLabel}>Amount to be payed</div>
-            <div className={styles.amountValue}>₹{total}</div>
+            <div className={styles.amountValue}>₹{orderTotal}</div>
           </div>
           <div className={styles.divider} />
           <button 
             className={styles.payButton}
-            onClick={() => setShowSuccess(true)}
+            onClick={handlePayment}
           >
             Proceed Payment
           </button>

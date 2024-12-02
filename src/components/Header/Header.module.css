@@ -79,6 +79,8 @@
 
   .location {
     display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 0.5rem;
   }
 
@@ -131,13 +133,22 @@
   }
 
   .loginBtn {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: #1e1b4b;
     color: #fff;
-    padding: 0.5rem 1.5rem;
+    padding: 0.5rem 0.5rem;
     border: none;
     border-radius: 50px;
     cursor: pointer;
+    margin-right: 2%;
+    width: auto;
+  }
+
+  .loginBtn img{
+    width: 20%;
+    margin-right: 5%;
   }
 
   .mobileMenu {

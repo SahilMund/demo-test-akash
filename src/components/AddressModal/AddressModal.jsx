@@ -1,17 +1,9 @@
 import styles from './AddressModal.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { SvgLocation } from '../../assets';
+import apiCall from '../../utils/API'
 
-const states = [
-  'Andhra Pradesh',
-  'Karnataka',
-  'Kerala',
-  'Maharashtra',
-  'Tamil Nadu',
-  'Telangana',
-  // Add more states as needed
-];
 
 AddressModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
@@ -19,25 +11,41 @@ AddressModal.propTypes = {
   onSave: PropTypes.func.isRequired
 };
 
-export function AddressModal({ isOpen, onClose, onSave }) {
+export function AddressModal({ isOpen, onClose, onSave,addressToEdit }) {
   const [formData, setFormData] = useState({
     state: '',
     city: '',
-    pinCode: '',
+    pincode: '',
     phone: '',
-    address: '',
+    fullAddress: '',
+    addressId:''
   });
+
+
+  useEffect(() => {
+    console.log('addressToEdit', addressToEdit);
+    if (addressToEdit) {
+      // Parse the address string to get individual fields
+      // const [address, cityState, pinCode] = addressToEdit.address.split(', ');
+      // const [city, state] = cityState.split(', ');
+
+      setFormData({
+        state: addressToEdit?.state ?? 'Kerala',
+        city: addressToEdit?.city,
+        pincode: addressToEdit?.pincode,
+        phone: addressToEdit.phone,
+        fullAddress: addressToEdit?.fullAddress,
+        addressId:addressToEdit.addressId,
+        isDefault: addressToEdit?.isDefault || false
+      });
+    }
+  }, [addressToEdit]);
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    onSave({
-      name: formData.name,
-      address: `${formData.address}, ${formData.city}, ${formData.state} - ${formData.pinCode}`,
-      phone: formData.phone,
-      isDefault: formData.isDefault
-    });
+    onSave(formData);
 
     console.log('formData', formData);
     onClose();
@@ -46,6 +54,9 @@ export function AddressModal({ isOpen, onClose, onSave }) {
   const handleChange = (e) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
+  
+
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
@@ -57,18 +68,14 @@ export function AddressModal({ isOpen, onClose, onSave }) {
         
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.formRow}>
-            <select
-              className={`${styles.input} ${styles.select}`}
+            <input
               name="state"
+              className={styles.input}
+              placeholder="State"
               value={formData.state}
               onChange={handleChange}
               required
-            >
-              <option value="">State</option>
-              {states.map(state => (
-                <option key={state} value={state}>{state}</option>
-              ))}
-            </select>
+            />
 
             <input
               type="text"
@@ -79,15 +86,12 @@ export function AddressModal({ isOpen, onClose, onSave }) {
               onChange={handleChange}
               required
             />
-          {/* </div>
-
-          <div className={styles.formRow}> */}
             <input
               type="text"
               className={styles.input}
               placeholder="Pin Code"
-              name="pinCode"
-              value={formData.pinCode}
+              name="pincode"
+              value={formData.pincode}
               onChange={handleChange}
               required
             />
@@ -106,8 +110,8 @@ export function AddressModal({ isOpen, onClose, onSave }) {
           <textarea
             className={styles.textarea}
             placeholder="Enter full address"
-            name="address"  
-            value={formData.address}
+            name="fullAddress"  
+            value={formData.fullAddress}
             onChange={handleChange}
             required
           />

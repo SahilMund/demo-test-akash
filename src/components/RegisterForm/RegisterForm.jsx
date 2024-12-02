@@ -15,7 +15,7 @@ const RegisterForm = () => {
     e.preventDefault();
     try {
       const response = await apiCall(
-        'http://localhost:8080/api/user/signup',
+        import.meta.env.VITE_BACKEND_BASE_URL+'/api/user/signup',
         "POST",
         {},
         {

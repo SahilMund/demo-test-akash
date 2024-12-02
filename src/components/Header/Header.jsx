@@ -1,19 +1,13 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { useNavigate ,Link} from 'react-router-dom';
 import styles from './Header.module.css';
 import constants from '../../utils/constants';
 
-export default function Header() {
+export default function Header({setShowCart ,totalCartItems}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate =useNavigate()
   const handleProfile=()=>{
-    console.log("hellooo");
-    
     navigate('/profile')
-    // if(loggedIn){
-    // }else{
-    //   navigate('/login')
-    // }
   }
   
   return (
@@ -27,10 +21,10 @@ export default function Header() {
           <span>Regent Street, A4, A420l, London</span>
           <button className={styles.changeLocation}>Change Location</button>
         </div>
-        <div className={styles.cart}>
+        <div className={styles.cart} onClick={()=>setShowCart((prev)=>!prev)}>
           <span className={styles.cartIcon}>🛒</span>
           <span>My Cart</span>
-          <span className={styles.cartCount}>0</span>
+          <span className={styles.cartCount}>{totalCartItems}</span>
         </div>
       </div>
 
@@ -45,7 +39,10 @@ export default function Header() {
           <a href="#" className={styles.menuItem}>Track Order</a>
         </div>
 
-        <button className={styles.loginBtn} onClick={handleProfile}>Login/Signup</button>
+        <div className={styles.loginBtn} onClick={handleProfile}>
+          <img src="https://img.icons8.com/?size=100&id=E2LI0GQ7_ToC&format=png&color=000000" alt="user-icon" />
+          {localStorage.getItem('userName')}
+        </div>
 
         <button 
           className={styles.hamburger}

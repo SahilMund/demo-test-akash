@@ -1,4 +1,5 @@
 import React,{useState , useEffect} from 'react'
+import { useNavigate } from "react-router-dom";
 import { Profile ,Footer,Header } from '../components/index.component'
 import apiCall from '../utils/API'
 import Loader from '../components/Loader/Loader'
@@ -6,16 +7,20 @@ import Loader from '../components/Loader/Loader'
 const ProfilePage = () => {
   const [profileDetails,setProfileDetails] = useState({})
   const [isLoading,setIsLoading] = useState(true)
+  const navigate = useNavigate()
+  console.log("localStorage.getItem('token')",localStorage.getItem('token'));
+  
   const getProfileDetails = async ()=>{
-    const resopnse = await apiCall(
-      'http://localhost:8080/api/all/profilePage',
+    const response = await apiCall(
+      import.meta.env.VITE_BACKEND_BASE_URL+'/api/all/profilePage',
       "GET",
-      {Authorization:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFrYXNoMUBnbWFpbC5jb20iLCJ1c2VySWQiOjE3MzI5NTA4OTE1MDUsImlhdCI6MTczMjk1MDk1OX0.6dmZoF9MURjjUk2RgPvlp67wIzaGJ1MpIAMhiBNlzTk"},
-    )
-    setProfileDetails(resopnse)
+      {Authorization:localStorage.getItem('token')})
+    if(response==0){
+      navigate('/login')
+    }
+    setProfileDetails(response)
     setIsLoading(false)
   }
-  console.log("profileDetails==",profileDetails);
   
   useEffect(()=>{
     getProfileDetails()

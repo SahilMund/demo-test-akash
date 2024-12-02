@@ -1,35 +1,45 @@
-import  { useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Profile.module.css';
 import PaymentModal from '../PaymentModal/PaymentModal';
 import { SvgCard, SvgEdit } from '../../assets';
+import apiCall from '../../utils/API';
 
 const Profile=({profileData={}})=> {
   
   const [isEditing, setIsEditing] = useState(false);
+  const [userData, setUserData] = useState({});
   const navigate = useNavigate()
   const handleReturn =()=>{
     navigate('/home')
   }
-  const [userData, setUserData] = useState({
-    fullName: 'Mike Ross',
-    email: 'mikeross@gmail.com',
-    gender: 'Male',
-    country: 'India'
-  });
   const [paymentCards, setPaymentCards] = useState(profileData?.cardDetails);
 
   const [selectedCard, setSelectedCard] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleEdit = () => {
-    // if(isEditing){
-
-    // }}
+  const handleProfileEdit = async() => {
+    if(isEditing){
+      const response = await apiCall(
+        import.meta.env.VITE_BACKEND_BASE_URL+'/api/user/userProfile',
+        "PUT",
+        {Authorization:localStorage.getItem('token')},
+        {
+          name:userData.name,
+          email:userData.email,
+          gender:userData.gender,
+          country:userData.country
+        })
+      console.log("response handle change",response);
+      
+      if(response==0){
+        navigate('/login')
+      }
+    }
     setIsEditing(!isEditing);
   };
 
-  const handleChange = (e) => {
+  const handleChange = async(e) => {
     const { name, value } = e.target;
     setUserData(prev => ({
       ...prev,
@@ -42,14 +52,17 @@ const Profile=({profileData={}})=> {
     setIsModalOpen(true);
   };
 
-  const handleSaveCard = (updatedCard) => {
-    setPaymentCards(cards =>
-      cards.map(card =>
-        card.id === selectedCard.id
-          ? { ...card, ...updatedCard }
-          : card
-      )
-    );
+  const handleSaveCard = async(updatedCard) => {
+    // setPaymentCards(cards =>
+    //   cards.map(card =>
+    //     card.cardId === selectedCard.cardId
+    //       ? { ...card, ...updatedCard }
+    //       : card
+    //   )
+    // );
+    console.log("Hello",updatedCard);
+    
+    
     setIsModalOpen(false);
   };
 
@@ -57,12 +70,28 @@ const Profile=({profileData={}})=> {
     setIsModalOpen(true);
   };
 
-  const handleRemoveCard = () => {
+  const handleRemoveCard = async() => {
     setPaymentCards(cards =>
-      cards.filter(card => card.id !== selectedCard.id)
+      cards.filter(card => card.cardId !== selectedCard.cardId)
     );
     setIsModalOpen(false);
+    const response = await apiCall(
+      import.meta.env.VITE_BACKEND_BASE_URL+'/api/card/delete',
+      "POST",
+      {Authorization:localStorage.getItem('token')},
+      {
+        cardId:selectedCard.cardId
+      })
+    
+    if(response==0){
+      navigate('/login')
+    }
+
   };
+
+  useEffect(()=>{
+    setUserData(profileData?.userDetails)
+  },[])
 
   return (
     <div className={styles.profileContainer}>
@@ -71,7 +100,7 @@ const Profile=({profileData={}})=> {
           <button className={styles.backButton} onClick={handleReturn}>←</button>
           <h2>My Profile</h2>
         </div>
-        <button className={styles.editButton} onClick={handleEdit}>
+        <button className={styles.editButton} onClick={handleProfileEdit}>
           {isEditing ? 'Save' : 'Edit'}
         </button>
       </div>
@@ -83,7 +112,7 @@ const Profile=({profileData={}})=> {
             alt="Profile" 
             className={styles.profileImage} 
           />
-          <h3>{userData.fullName}</h3>
+          <h3>{userData.name}</h3>
         </div>
 
         <div className={styles.profileForm}>
@@ -91,8 +120,8 @@ const Profile=({profileData={}})=> {
             <label>Full Name</label>
             <input
               type="text"
-              name="fullName"
-              value={userData.fullName}
+              name="name"
+              value={userData.name}
               onChange={handleChange}
               disabled={!isEditing}
             />
@@ -133,7 +162,7 @@ const Profile=({profileData={}})=> {
           <h3>Saved Payment Methods</h3>
           <div className={styles.paymentCards}>
             {paymentCards.map(card => (
-              <div key={card.id} className={styles.card}>
+              <div key={card.cardId} className={styles.card}>
                 <img src={SvgCard} alt="Card" />
                 <div >
                   <div className={styles.cardNumber}>{card.cardNumber}</div>
@@ -158,6 +187,7 @@ const Profile=({profileData={}})=> {
         cardData={selectedCard || {}}
         onSave={handleSaveCard}
         onRemove={handleRemoveCard}
+        setIsModalOpen={setIsModalOpen}
       />
     </div>
   );

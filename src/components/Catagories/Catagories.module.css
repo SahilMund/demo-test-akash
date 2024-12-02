@@ -1,6 +1,6 @@
 .itemContainer {
     margin: 4%;
-    width: 90vw;
+    width: auto;
   }
   
   .itemContainer h2 {
@@ -16,7 +16,7 @@
   
   .itemCard {
     display: flex;
-    width: 27%;
+    width: 25%;
     border: 1px solid #ccc;
     border-radius: 10px;
     padding: 30px;

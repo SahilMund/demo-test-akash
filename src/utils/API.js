@@ -1,10 +1,14 @@
 const apiCall = async ( url, method = "GET", headers = {}, body = {}, params = {} ) => {
   try {
-    console.log("urllll",url,body);
+    console.log("header API==",headers);
     
     // Build query string for GET requests if `params` are provided
     const queryString = new URLSearchParams(params).toString();
     const requestUrl = queryString ? `${url}?${queryString}` : url;
+
+    if(Object.keys(headers).length >0 && !headers.Authorization){
+      return 0
+    }
 
     // Set default headers
     const defaultHeaders = {

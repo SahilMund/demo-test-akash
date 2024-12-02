@@ -16,22 +16,7 @@ function App() {
   const [showPayment, setShowPayment] = useState(false);
   const [showAddressList, setShowAddressList] = useState(false);
   const [total, setTotal] = useState(0);
-  const [addresses] = useState([
-    {
-      id: '1',
-      name: 'Mike Ross',
-      address: '45, Green Street, Sector 12, New Delhi, 11001, India',
-      phone: '9734537468',
-      isDefault: true
-    },
-    {
-      id: '2',
-      name: 'Mike Ross',
-      address: 'Office 704, Tower B, Techno Plaza, Bengaluru, Karnataka, 560100, India',
-      phone: '9537447362'
-    }
-  ]);
-  const [selectedAddress, setSelectedAddress] = useState(addresses[0]);
+  const [selectedAddress, setSelectedAddress] = useState({});
 
   return (
     <BrowserRouter>
@@ -42,7 +27,6 @@ function App() {
         setShowAddressList={setShowAddressList}
         total={total}
         setTotal={setTotal}
-        addresses={addresses}
         selectedAddress={selectedAddress}
         setSelectedAddress={setSelectedAddress}
       />
@@ -58,7 +42,6 @@ function Routing({
   setShowAddressList,
   total,
   setTotal,
-  addresses,
   selectedAddress,
   setSelectedAddress 
 }) {
@@ -74,13 +57,7 @@ function Routing({
 
 
   const handleBack = () => {
-    // if (showAddressList) {
-    //   setShowAddressList(false);
-    // } else if (showPayment) {
-    //   setShowPayment(false);
-    // }
-
-    navigate('/checkout');
+    navigate('/product');
   };
 
   const handleSelectAddress = (address) => {
@@ -112,7 +89,6 @@ function Routing({
           total={total}
           handleBack={handleBack}/>} />
         <Route path="/address" element={<AddressPage 
-          addresses={addresses}
           selectedAddress={selectedAddress}
           handleSelectAddress={handleSelectAddress}
           handleBack={handleBack}/>} />
@@ -128,7 +104,6 @@ Routing.propTypes = {
   setShowAddressList: PropTypes.func.isRequired,
   total: PropTypes.number.isRequired,
   setTotal: PropTypes.func.isRequired,
-  addresses: PropTypes.array.isRequired,
   selectedAddress: PropTypes.object.isRequired,
   setSelectedAddress: PropTypes.func.isRequired
 };

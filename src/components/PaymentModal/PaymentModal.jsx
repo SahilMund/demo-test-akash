@@ -1,27 +1,40 @@
 import PropTypes from 'prop-types';
 import styles from './PaymentModal.module.css';
+import apiCall from '../../utils/API';
 
-function PaymentModal({ isOpen, onClose, cardData, onSave, onRemove }) {
+function PaymentModal({ isOpen, onClose, cardData, onSave, onRemove ,setIsModalOpen}) {
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
+  const handleCardSubmit = async(e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const updatedCard = {
       cardNumber: formData.get('cardNumber'),
-      expiration: formData.get('expiration'),
-      cvc: formData.get('cvc'),
-      nameOnCard: formData.get('nameOnCard')
+      expireDate: formData.get('expireDate'),
+      cvv: formData.get('cvv'),
+      nameOnCard: formData.get('nameOnCard'),
+      cardId:cardData.cardId
     };
+    const response = await apiCall(
+      import.meta.env.VITE_BACKEND_BASE_URL+'/api/card/create',
+      "POST",
+      {Authorization:localStorage.getItem('token')},
+      updatedCard)
+      
+      if(response==0){
+        navigate('/login')
+      }
+      window.location.reload()
     onSave(updatedCard);
+    setIsModalOpen(false)
   };
 
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
         <h2>Edit Payment Method</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleCardSubmit}>
           <div className={styles.formContainer}>
           <div className={styles.formGroup}>
             <label>Card Number</label>
@@ -30,6 +43,7 @@ function PaymentModal({ isOpen, onClose, cardData, onSave, onRemove }) {
               name="cardNumber"
               defaultValue={cardData.cardNumber}
               placeholder="XXXX XXXX XXXX XXXX"
+              required
             />
           </div>
 
@@ -37,9 +51,10 @@ function PaymentModal({ isOpen, onClose, cardData, onSave, onRemove }) {
             <label>Expiration</label>
             <input
               type="text"
-              name="expiration"
-              defaultValue={cardData.expiration}
+              name="expireDate"
+              defaultValue={cardData.expireDate}
               placeholder="MM/YY"
+              required
             />
           </div>
 
@@ -47,9 +62,10 @@ function PaymentModal({ isOpen, onClose, cardData, onSave, onRemove }) {
             <label>CVC</label>
             <input
               type="text"
-              name="cvc"
-              defaultValue={cardData.cvc}
+              name="cvv"
+              defaultValue={cardData.cvv}
               placeholder="XXX"
+              required
             />
           </div>
 
@@ -60,6 +76,7 @@ function PaymentModal({ isOpen, onClose, cardData, onSave, onRemove }) {
               name="nameOnCard"
               defaultValue={cardData.nameOnCard}
               placeholder="Name on Card"
+              required
             />
           </div>
           </div>

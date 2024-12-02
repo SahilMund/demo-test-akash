@@ -3,7 +3,7 @@ import { Header,Footer,OrderDetails,PopularRestaurants } from '../components/ind
 
 const CheckOutPage = ({selectedAddress,handleShowPayment,handleRouteToAddress}) => {
     
-    
+  
   return (
     <>
         <Header/>

@@ -13,7 +13,7 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const response = await apiCall(
-        'http://localhost:8080/api/user/signin',
+        import.meta.env.VITE_BACKEND_BASE_URL+'/api/user/signin',
         "POST",
         {},
         {
@@ -21,8 +21,7 @@ const LoginForm = () => {
           password:password
         }
       )
-      console.log("response",response);
-      localStorage.setItem(response.userId.toString(),response.token)
+      localStorage.setItem('token',response.token)
 
       setEmail('');
       setPassword('');
